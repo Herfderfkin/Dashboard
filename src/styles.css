@@ -1,1 +1,32 @@
 /* You can add global styles to this file, and also import other style files */
+#csv-file:hover {
+    color: white;
+}
+
+canvas{
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+.card.poppy:hover {
+    box-shadow: 0 0.125rem 0 0 #0094d2;
+    border: 1px solid #0094d2;
+    text-decoration: none;
+    transform: translateY(-2px);
+    transition: border 0.1s ease, transform 0.1s ease; }
+
+.clicky:hover {
+    cursor: pointer;
+}
+
+.enlarged {
+    margin-left:auto;
+    margin-right:auto;
+    float: center;
+    transition: .1s ease;
+}
+
+.col-lg-4 {
+    transition: .1s ease;
+}
