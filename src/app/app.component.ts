@@ -29,8 +29,8 @@ export class AppComponent implements OnInit {
 			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],      
       datasets: [{
         label: 'Driver # 1',
-				backgroundColor: 'rgb(255, 99, 132)',
-				borderColor: 'rgb(255, 99, 132)',
+				backgroundColor: colors.red,
+				borderColor: colors.red,
 				data: firstSwitch,
         fill: false,
         pointRadius: 6,
@@ -108,25 +108,16 @@ export class AppComponent implements OnInit {
   })
 
   var dataSustainedSwitch = {
-    labels: ['January', 'February', 'March'],      
+    labels: drivers,      
     datasets: [{
       label: 'Driver # 1',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: colors.red,
+      borderColor: colors.red,
       data: sustainedSwitch,
       fill: false,
       pointRadius: 6,
       pointHoverRadius: 12,
-      pointHitRadius: 15,	
-    }, {
-      label: 'Driver # 2',
-      fill: false,
-      backgroundColor: 'rgb(54, 162, 235)',
-      borderColor: 'rgb(54, 162, 235)',
-      data: [5.4,1.2,13.7],
-      pointRadius: 6,
-      pointHoverRadius: 12,
-      pointHitRadius: 15,		
+      pointHitRadius: 15,    
     }]
   }
 
@@ -140,7 +131,7 @@ export class AppComponent implements OnInit {
     //   text: '1st Switch Times',
     //   fontColor: 'white',
     //   fontSize: 12,
-    // },       
+    // },
     legend: {
       display: true,
       labels: {
@@ -199,25 +190,16 @@ export class AppComponent implements OnInit {
 });
 
 var dataMaxSwitch = {
-  labels: ['January', 'February', 'March'],      
+  labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: colors.red,
+    borderColor: colors.red,
     data: maxSwitch,
     fill: false,
     pointRadius: 6,
     pointHoverRadius: 12,
-    pointHitRadius: 15,	
-  }, {
-    label: 'Driver # 2',
-    fill: false,
-    backgroundColor: 'rgb(54, 162, 235)',
-    borderColor: 'rgb(54, 162, 235)',
-    data: [5.4,1.2,13.7],
-    pointRadius: 6,
-    pointHoverRadius: 12,
-    pointHitRadius: 15,		
+    pointHitRadius: 15,
   }]
 };
 
@@ -290,25 +272,16 @@ options: {
 });
 
 var dataFirstOpen = {
-  labels: ['January', 'February', 'March'],      
+  labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: colors.yellow,
+    borderColor: colors.yellow,
     data: firstOpen,
     fill: false,
     pointRadius: 6,
     pointHoverRadius: 12,
-    pointHitRadius: 15,	
-  }, {
-    label: 'Driver # 2',
-    fill: false,
-    backgroundColor: 'rgb(54, 162, 235)',
-    borderColor: 'rgb(54, 162, 235)',
-    data: [5.4,1.2,13.7],
-    pointRadius: 6,
-    pointHoverRadius: 12,
-    pointHitRadius: 15,		
+    pointHitRadius: 15,
   }]
 };
 
@@ -381,25 +354,16 @@ options: {
 });
 
 var dataSustainedOpen = {
-  labels: ['January', 'February', 'March'],      
+  labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: colors.yellow,
+    borderColor: colors.yellow,
     data: sustainedOpen,
     fill: false,
     pointRadius: 6,
     pointHoverRadius: 12,
-    pointHitRadius: 15,	
-  }, {
-    label: 'Driver # 2',
-    fill: false,
-    backgroundColor: 'rgb(54, 162, 235)',
-    borderColor: 'rgb(54, 162, 235)',
-    data: [5.4,1.2,13.7],
-    pointRadius: 6,
-    pointHoverRadius: 12,
-    pointHitRadius: 15,		
+    pointHitRadius: 15,
   }]
 };
 
@@ -472,25 +436,16 @@ options: {
 });
 
 var dataMaxOpen = {
-  labels: ['January', 'February', 'March'],      
+  labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: colors.yellow,
+    borderColor: colors.yellow,
     data: maxOpen,
     fill: false,
     pointRadius: 6,
     pointHoverRadius: 12,
-    pointHitRadius: 15,	
-  }, {
-    label: 'Driver # 2',
-    fill: false,
-    backgroundColor: 'rgb(54, 162, 235)',
-    borderColor: 'rgb(54, 162, 235)',
-    data: [5.4,1.2,13.7],
-    pointRadius: 6,
-    pointHoverRadius: 12,
-    pointHitRadius: 15,		
+    pointHitRadius: 15,
   }]
 };
 
@@ -563,25 +518,16 @@ options: {
 });
 
 var dataFirstPrint = {
-  labels: ['January', 'February', 'March'],      
+  labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: colors.green,
+    borderColor: colors.green,
     data: firstPrint,
     fill: false,
     pointRadius: 6,
     pointHoverRadius: 12,
-    pointHitRadius: 15,	
-  }, {
-    label: 'Driver # 2',
-    fill: false,
-    backgroundColor: 'rgb(54, 162, 235)',
-    borderColor: 'rgb(54, 162, 235)',
-    data: [5.4,1.2,13.7],
-    pointRadius: 6,
-    pointHoverRadius: 12,
-    pointHitRadius: 15,		
+    pointHitRadius: 15,
   }]
 };
 
@@ -653,25 +599,16 @@ options: {
 
 
 var dataSustainedPrint = {
-  labels: ['January', 'February', 'March'],      
+  labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: 'rgb(255, 99, 132)',
-    borderColor: 'rgb(255, 99, 132)',
+    backgroundColor: colors.green,
+    borderColor: colors.green,
     data: sustainedPrint,
     fill: false,
     pointRadius: 6,
     pointHoverRadius: 12,
-    pointHitRadius: 15,	
-  }, {
-    label: 'Driver # 2',
-    fill: false,
-    backgroundColor: 'rgb(54, 162, 235)',
-    borderColor: 'rgb(54, 162, 235)',
-    data: [5.4,1.2,13.7],
-    pointRadius: 6,
-    pointHoverRadius: 12,
-    pointHitRadius: 15,		
+    pointHitRadius: 15,
   }]
 };
 
@@ -744,23 +681,14 @@ options: {
     //'maxOpen','firstOpen','sustainedOpen','maxPrint','firstPrint','sustainedPrint'],
     datasets: [{
       label: 'Driver # 1',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
+      backgroundColor: colors.green,
+      borderColor: colors.green,
       data: maxPrint,
         // maxOpen,firstOpen,sustainedOpen,maxPrint,firstPrint,sustainedPrint],
       fill: false,
       pointRadius: 6,
       pointHoverRadius: 12,
-      pointHitRadius: 15,	
-    }, {
-      label: 'Driver # 2',
-      fill: false,
-      backgroundColor: 'rgb(54, 162, 235)',
-      borderColor: 'rgb(54, 162, 235)',
-      data: [5.4,1.2,13.7],
-      pointRadius: 6,
-      pointHoverRadius: 12,
-      pointHitRadius: 15,		
+      pointHitRadius: 15,
     }]
   };
 
@@ -845,6 +773,19 @@ $(".enlarge").click(function(event){
   }, 150);
 });
 
+//Button click
+$(document).ready(function(){
+  $('html').delegate('button.UIDbutton','click', function() { 
+      var id = this.id;
+      $(this).siblings().removeClass("btn-primary")
+      $(this).siblings().removeClass("btn-outline")
+      $(this).siblings().addClass("btn-outline")
+      $(this).removeClass("btn-outline")
+      $(this).addClass("btn-primary")
+      graphIt(database,id);
+  });
+});
+
 
 //CSV Files processing
 
@@ -855,23 +796,23 @@ function handleFileSelect(evt) {
 }
 
 function parseData(file, callBack) {
-  console.log(file.name);
 Papa.parse(file, {
     download: false,
     dynamicTyping: true,      
     delimiter: "",	// auto-detect
     newline: "",	// auto-detect
     quoteChar: '"',
-    header: false,
+    header: true,
     preview: 0,
     encoding: "",
     worker: false,
     comments: false,
     skipEmptyLines: false,      
     complete: function(results) {
-        callBack(results.data,file.name);
+        callBack(results.data);
     }});
 }
+
 
 $(document).ready(function(){
 $(".csv-file").change(handleFileSelect);
@@ -880,38 +821,71 @@ $(".csv-file").change(handleFileSelect);
 var firstSwitch = [];
 var sustainedSwitch = [];
 var maxSwitch = [];
+
 var firstOpen = [];
 var sustainedOpen = [];
 var maxOpen = [];
+
 var firstPrint = [];
 var sustainedPrint =[];
 var maxPrint = [];
-var fileString = [];
+
 var drivers = [];
 var JenkinsBuild = [];
-var i = 0;
 
-function callBack(data,name){
-i = i+1;
+var UID = [];
+var j = 0;
+var database = [];
+var UIDx;
+
+function GetSortOrder(prop) {  
+  return function(a, b) {  
+      if (a[prop] > b[prop]) {  
+          return 1;  
+      } else if (a[prop] < b[prop]) {  
+          return -1;  
+      }  
+      return 0;  
+  }  
+}
+
+function callBack(data){
+database = data;
 console.log(data);
-fileString = name.split("_");
-JenkinsBuild.push(fileString[0]);
-maxSwitch.push(data[0][1]);
-drivers.push("Driver " + i);
-firstSwitch.push(data[1][1]);
-sustainedSwitch.push(data[2][1]);
-maxOpen .push(data[3][1]);
-firstOpen.push(data[4][1]);
-sustainedOpen.push(data[5][1]);
-maxPrint.push(data[6][1]);
-firstPrint.push(data[7][1]);
-sustainedPrint.push(data[8][1]);
+database.sort(GetSortOrder("DriverVer"));
+for (j=0; j < data.length-1; j++) {
+  var tag = data[j].Test_UID
+  if (!UID.includes(tag)){
+    UID.push(tag);
+    UIDx = data[j].DriverType + ", " + data[j].PDL + ", " + data[j].OS + ", " + data[j].App + ", " + data[j].Complexity + ", " + data[j].RestartBwCycles + " Reboots, " + data[j].Config
+    $("#combos").append("<button class=\"UIDbutton btn btn-outline\" id = \"" + tag + "\">" + UIDx + "</button>");
+  }
+}
+for (j=0; j < data.length-1; j++) {
+  if (data[j].Test_UID == UID[0]) {  
+    //Event Filter
+    if (data[j].Event == 'Switch') {
+      maxSwitch.push(data[j].High);
+      firstSwitch.push(data[j].First);
+      sustainedSwitch.push(data[j].Sustained);
+      JenkinsBuild.push(data[j].BuildTag);
+      drivers.push(data[j].DriverVer + " - " + data[j].BuildTag);
+    }
+    if (data[j].Event == 'Open') {
+      maxOpen.push(data[j].High);
+      firstOpen.push(data[j].First);
+      sustainedOpen.push(data[j].Sustained);
+    }
+    if (data[j].Event == 'Print') {
+      maxPrint.push(data[j].High);
+      firstPrint.push(data[j].First);
+      sustainedPrint.push(data[j].Sustained);
+    }
+    var charted = data[j].DriverType + ", " + data[j].PDL + ", " + data[j].OS + ", " + data[j].App + ", " + data[j].Complexity + ", " + data[j].RestartBwCycles + " Reboots, " + data[j].Config
+  }
+}
 
-console.log("First Switch: " + firstSwitch);
-console.log("Sustained Switcht: " + sustainedSwitch);
-console.log("Max Switch: " + maxSwitch);
-
-console.log("Max Print: " + maxPrint);
+$("#charted").html(charted);
 
 firstSwitchChart.data.datasets[0].data = firstSwitch;
 firstSwitchChart.data.labels = drivers;
@@ -949,6 +923,94 @@ maxPrintChart.data.datasets[0].data = maxPrint;
 maxPrintChart.data.labels = drivers;
 maxPrintChart.update();
 }
+
+function graphIt(data,id){
+  var firstSwitch = [];
+  var sustainedSwitch = [];
+  var maxSwitch = [];
+
+  var firstOpen = [];
+  var sustainedOpen = [];
+  var maxOpen = [];
+
+  var firstPrint = [];
+  var sustainedPrint =[];
+  var maxPrint = [];
+
+  var drivers = [];
+  var JenkinsBuild = [];
+
+  for (j=0; j < data.length-1; j++) {
+    if (data[j].Test_UID == id) {  
+      //Event Filter
+      if (data[j].Event == 'Switch') {
+        maxSwitch.push(data[j].High);
+        firstSwitch.push(data[j].First);
+        sustainedSwitch.push(data[j].Sustained);
+        JenkinsBuild.push(data[j].BuildTag);
+        drivers.push([data[j].DriverVer, data[j].BuildTag]);
+      }
+      if (data[j].Event == 'Open') {
+        maxOpen.push(data[j].High);
+        firstOpen.push(data[j].First);
+        sustainedOpen.push(data[j].Sustained);
+      }
+      if (data[j].Event == 'Print') {
+        maxPrint.push(data[j].High);
+        firstPrint.push(data[j].First);
+        sustainedPrint.push(data[j].Sustained);
+      }
+      var charted = data[j].DriverType + ", " + data[j].PDL + ", " + data[j].OS + ", " + data[j].App + ", " + data[j].Complexity + ", " + data[j].RestartBwCycles + " Reboots, " + data[j].Config
+    }
+  }
+  
+  $("#charted").html(charted);
+  
+  firstSwitchChart.data.datasets[0].data = firstSwitch;
+  firstSwitchChart.data.datasets[0].label = charted;
+  firstSwitchChart.data.labels = drivers;
+  firstSwitchChart.update();
+  
+  sustainedSwitchChart.data.datasets[0].data = sustainedSwitch;
+  sustainedSwitchChart.data.datasets[0].label = charted;
+  sustainedSwitchChart.data.labels = drivers;
+  sustainedSwitchChart.update();
+  
+  maxSwitchChart.data.datasets[0].data = maxSwitch;
+  maxSwitchChart.data.datasets[0].label = charted;
+  maxSwitchChart.data.labels = drivers;
+  maxSwitchChart.update();
+  
+  firstOpenChart.data.datasets[0].data = firstOpen;
+  firstOpenChart.data.datasets[0].label = charted;
+  firstOpenChart.data.labels = drivers;
+  firstOpenChart.update();
+  
+  sustainedOpenChart.data.datasets[0].data = sustainedOpen;
+  sustainedOpenChart.data.datasets[0].label = charted;
+  sustainedOpenChart.data.labels = drivers;
+  sustainedOpenChart.update();
+  
+  maxOpenChart.data.datasets[0].data = maxOpen;
+  maxOpenChart.data.datasets[0].label = charted;
+  maxOpenChart.data.labels = drivers;
+  maxOpenChart.update();
+  
+  firstPrintChart.data.datasets[0].data = firstPrint;
+  firstPrintChart.data.datasets[0].label = charted;
+  firstPrintChart.data.labels = drivers;
+  firstPrintChart.update();
+  
+  sustainedPrintChart.data.datasets[0].data = sustainedPrint;
+  sustainedPrintChart.data.datasets[0].label = charted;
+  sustainedPrintChart.data.labels = drivers;
+  sustainedPrintChart.update();
+  
+  maxPrintChart.data.datasets[0].data = maxPrint;
+  maxPrintChart.data.datasets[0].label = charted;
+  maxPrintChart.data.labels = drivers;
+  maxPrintChart.update();
+  }
 
 
 
