@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
       blue: 'rgb(54, 162, 235)',
       purple: 'rgb(153, 102, 255)',
       grey: 'rgb(201, 203, 207)',
-      white: 'rgb(255,255,255)'
+      white: 'rgb(255,255,255)',
     };
 
     var dataFirstSwitch = {
@@ -869,7 +869,7 @@ for (j=0; j < data.length-1; j++) {
       firstSwitch.push(data[j].First);
       sustainedSwitch.push(data[j].Sustained);
       JenkinsBuild.push(data[j].BuildTag);
-      drivers.push(data[j].DriverVer + " - " + data[j].BuildTag);
+      drivers.push([data[j].DriverVer, data[j].TestTime.split(" ")[0]]);
     }
     if (data[j].Event == 'Open') {
       maxOpen.push(data[j].High);
@@ -948,7 +948,7 @@ function graphIt(data,id){
         firstSwitch.push(data[j].First);
         sustainedSwitch.push(data[j].Sustained);
         JenkinsBuild.push(data[j].BuildTag);
-        drivers.push([data[j].DriverVer, data[j].BuildTag]);
+        drivers.push([data[j].DriverVer, data[j].TestTime.split(" ")[0]]);
       }
       if (data[j].Event == 'Open') {
         maxOpen.push(data[j].High);
