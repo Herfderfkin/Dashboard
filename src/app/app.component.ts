@@ -23,7 +23,61 @@ export class AppComponent implements OnInit {
       purple: 'rgb(153, 102, 255)',
       grey: 'rgb(201, 203, 207)',
       white: 'rgb(255,255,255)',
-    };
+    };   
+
+    Chart.plugins.register({
+			afterDatasetsDraw: function(chart) {
+				var ctx = chart.ctx;
+
+				chart.data.datasets.forEach(function(dataset, i) {
+					var meta = chart.getDatasetMeta(i);
+					if (!meta.hidden) {
+						meta.data.forEach(function(element, index) {
+							// Draw the text in white, with the specified font
+							ctx.fillStyle = 'rgb(255,255,255)';
+
+							var fontSize = 12;
+							var fontStyle = 'normal';
+							var fontFamily = 'Segoe UI Semilight';
+							ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+							// Just naively convert to string for now
+							var dataString = dataset.data[index].toString();
+
+							// Make sure alignment settings are correct
+							ctx.textAlign = 'center';
+							ctx.textBaseline = 'middle';
+
+							var padding = 5;
+							var position = element.tooltipPosition();
+              var posx = position.x - fontSize*1.2;
+              var posy = position.y - fontSize*2;
+              var rectx = fontSize*2.4;
+              var recty = fontSize*1.2;
+              ctx.fillStyle = 'rgba(0,0,0,0.8)';
+              ctx.fillRect(posx, posy, rectx, recty);
+
+              ctx.fillStyle = 'rgb(255,255,255)';
+              ctx.fillText(dataString, position.x, position.y - fontSize - padding);
+              
+              ctx.fillStyle = 'rgba(0,0,0,0.8)';
+              var tri1x = (position.x - padding);
+              var tri1y = (position.y - fontSize);
+              var tri2x = (position.x + padding);
+              var tri2y = (position.y - fontSize);
+              var tri3x = (position.x);
+              var tri3y = (position.y - padding);
+              ctx.beginPath();
+              ctx.moveTo(tri1x,tri1y);
+              ctx.lineTo(tri2x,tri2y);
+              ctx.lineTo(tri3x,tri3y);
+              ctx.fill();
+              
+						});
+					}
+				});
+			}
+		});
 
     var dataFirstSwitch = {
 			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],      
@@ -89,6 +143,7 @@ export class AppComponent implements OnInit {
           ticks: {
             fontColor: "white",
             fontSize: 12,
+            beginAtZero: true,
           },
           gridLines: {
             display: true,
@@ -171,6 +226,7 @@ export class AppComponent implements OnInit {
         ticks: {
           fontColor: "white",
           fontSize: 12,
+          beginAtZero: true,
         },
         gridLines: {
           display: true,
@@ -253,6 +309,7 @@ options: {
       ticks: {
         fontColor: "white",
         fontSize: 12,
+        beginAtZero: true,
       },
       gridLines: {
         display: true,
@@ -335,6 +392,7 @@ options: {
       ticks: {
         fontColor: "white",
         fontSize: 12,
+        beginAtZero: true,
       },
       gridLines: {
         display: true,
@@ -417,6 +475,7 @@ options: {
       ticks: {
         fontColor: "white",
         fontSize: 12,
+        beginAtZero: true,
       },
       gridLines: {
         display: true,
@@ -499,6 +558,7 @@ options: {
       ticks: {
         fontColor: "white",
         fontSize: 12,
+        beginAtZero: true,
       },
       gridLines: {
         display: true,
@@ -581,6 +641,7 @@ options: {
       ticks: {
         fontColor: "white",
         fontSize: 12,
+        beginAtZero: true,
       },
       gridLines: {
         display: true,
@@ -660,6 +721,7 @@ options: {
       ticks: {
         fontColor: "white",
         fontSize: 12,
+        beginAtZero: true,
       },
       gridLines: {
         display: true,
@@ -740,6 +802,7 @@ options: {
         ticks: {
           fontColor: "white",
           fontSize: 12,
+          beginAtZero: true,
         },
         gridLines: {
           display: true,
