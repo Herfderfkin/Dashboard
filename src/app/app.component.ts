@@ -2,6 +2,7 @@ import { Component,OnInit } from '@angular/core';
 import { Chart } from 'chart.js';
 import * as Papa  from 'papaparse';
 import * as $ from 'jquery';
+import { elementProperty } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +24,33 @@ export class AppComponent implements OnInit {
       purple: 'rgb(153, 102, 255)',
       grey: 'rgb(201, 203, 207)',
       white: 'rgb(255,255,255)',
-    };   
+    };
+
+    function roundRect(ctx, x, y, width, height, radius, fill, stroke) {
+      if (typeof stroke == "undefined" ) {
+        stroke = true;
+      }
+      if (typeof radius === "undefined") {
+        radius = 5;
+      }
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + width - radius, y);
+      ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+      ctx.lineTo(x + width, y + height - radius);
+      ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+      ctx.lineTo(x + radius, y + height);
+      ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      if (stroke) {
+        ctx.stroke();
+      }
+      if (fill) {
+        ctx.fill();
+      }        
+    };
 
     Chart.plugins.register({
 			afterDatasetsDraw: function(chart) {
@@ -34,7 +61,7 @@ export class AppComponent implements OnInit {
 					if (!meta.hidden) {
 						meta.data.forEach(function(element, index) {
 							// Draw the text in white, with the specified font
-							ctx.fillStyle = 'rgb(255,255,255)';
+              ctx.fillStyle = 'rgb(255,255,255)';
 
 							var fontSize = 12;
 							var fontStyle = 'normal';
@@ -48,25 +75,27 @@ export class AppComponent implements OnInit {
 							ctx.textAlign = 'center';
 							ctx.textBaseline = 'middle';
 
-							var padding = 5;
-							var position = element.tooltipPosition();
-              var posx = position.x - fontSize*1.2;
-              var posy = position.y - fontSize*2;
+              var padding = 5;                       
+              var positionx = element._model.x;
+              var positiony = element._model.y;
+              var posx = positionx - fontSize*1.2;
+              var posy = positiony - fontSize*2.1;
               var rectx = fontSize*2.4;
               var recty = fontSize*1.2;
-              ctx.fillStyle = 'rgba(0,0,0,0.8)';
-              ctx.fillRect(posx, posy, rectx, recty);
+              ctx.fillStyle = 'rgba(0,0,0,0.7)';
+              roundRect(ctx, posx, posy, rectx, recty, padding/2, true, true);
+              //ctx.fillRect(posx, posy, rectx, recty);
 
               ctx.fillStyle = 'rgb(255,255,255)';
-              ctx.fillText(dataString, position.x, position.y - fontSize - padding);
-              
+              ctx.fillText(dataString, positionx, positiony - fontSize - padding);
+
               ctx.fillStyle = 'rgba(0,0,0,0.8)';
-              var tri1x = (position.x - padding);
-              var tri1y = (position.y - fontSize);
-              var tri2x = (position.x + padding);
-              var tri2y = (position.y - fontSize);
-              var tri3x = (position.x);
-              var tri3y = (position.y - padding);
+              var tri1x = (positionx - padding);
+              var tri1y = (positiony - padding*2.4);
+              var tri2x = (positionx + padding);
+              var tri2y = (positiony - padding*2.4);
+              var tri3x = (positionx);
+              var tri3y = (positiony - padding);
               ctx.beginPath();
               ctx.moveTo(tri1x,tri1y);
               ctx.lineTo(tri2x,tri2y);
@@ -1000,11 +1029,12 @@ function graphIt(data,id){
   var sustainedPrint =[];
   var maxPrint = [];
 
+
   var drivers = [];
   var JenkinsBuild = [];
 
   for (j=0; j < data.length-1; j++) {
-    if (data[j].Test_UID == id) {  
+    if (data[j].Test_UID == id) {      
       //Event Filter
       if (data[j].Event == 'Switch') {
         maxSwitch.push(data[j].High);
