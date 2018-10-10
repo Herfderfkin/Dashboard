@@ -1,8 +1,12 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit, wtfCreateScope } from '@angular/core';
 import { Chart } from 'chart.js';
 import * as Papa  from 'papaparse';
 import * as $ from 'jquery';
-import { elementProperty } from '@angular/core/src/render3/instructions';
+import * as regression from 'regression';
+import { RegisteredFilter } from '@clr/angular/data/datagrid/providers/filters';
+import { isDefined } from '@angular/compiler/src/util';
+import { element } from 'protractor';
+
 
 @Component({
   selector: 'app-root',
@@ -54,7 +58,13 @@ export class AppComponent implements OnInit {
 
     Chart.plugins.register({
 			afterDatasetsDraw: function(chart) {
-				var ctx = chart.ctx;
+        var ctx = chart.ctx;
+        var exesandwhys = [];
+        var bottom = 0;
+        var xLeft = 0;
+        var xRight = 0;
+        var bottom = 0;
+        var top = 0;
 
 				chart.data.datasets.forEach(function(dataset, i) {
 					var meta = chart.getDatasetMeta(i);
@@ -75,9 +85,15 @@ export class AppComponent implements OnInit {
 							ctx.textAlign = 'center';
 							ctx.textBaseline = 'middle';
 
-              var padding = 5;                       
+              var padding = 5;
               var positionx = element._model.x;
               var positiony = element._model.y;
+              bottom = element._chart.chartArea.bottom;
+              xLeft = element._chart.chartArea.left;
+              xRight = element._chart.chartArea.right;
+              top = element._chart.chartArea.top;
+              exesandwhys.push([positionx,positiony]);
+
               var posx = positionx - fontSize*1.2;
               var posy = positiony - fontSize*2.1;
               var rectx = fontSize*2.4;
@@ -101,19 +117,72 @@ export class AppComponent implements OnInit {
               ctx.lineTo(tri2x,tri2y);
               ctx.lineTo(tri3x,tri3y);
               ctx.fill();
-              
 						});
 					}
-				});
+        });
+        var trendline = regression.linear(exesandwhys);
+
+        var slope = trendline.equation[0];
+        var yIntercept = trendline.equation[1];
+        
+        if (isDefined(exesandwhys[0])) {
+
+        ctx.globalCompositeOperation = "destination-over";
+
+        var yLeft = (slope * xLeft) + yIntercept;
+        var yRight = (slope * xRight) + yIntercept;
+
+        var yTholdLeft = yLeft - (.25 * (bottom - yLeft));
+        var yTholdRight = yRight - (.25 * (bottom - yRight));
+        
+
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(xLeft,top);
+        ctx.lineTo(xRight,top);
+        ctx.lineTo(xRight,bottom);
+        ctx.lineTo(xLeft,bottom);
+        ctx.closePath();
+        ctx.clip();
+
+        ctx.fillStyle = 'rgba(75,192,192,0.1)';
+        ctx.beginPath();
+        ctx.moveTo(xLeft,yLeft);
+        ctx.lineTo(xRight,yRight);
+        ctx.lineTo(xRight,bottom);
+        ctx.lineTo(xLeft,bottom);
+        ctx.closePath();
+        ctx.fill();
+        
+        ctx.fillStyle = 'rgba(255,205,86,0.1)';
+        ctx.beginPath();
+        ctx.moveTo(xLeft,yLeft);
+        ctx.lineTo(xRight,yRight);
+        ctx.lineTo(xRight,yTholdRight);
+        ctx.lineTo(xLeft,yTholdLeft);
+        ctx.closePath();
+        ctx.fill();    
+
+        ctx.fillStyle = 'rgba(255,99,132,0.1)';
+        ctx.beginPath();
+        ctx.moveTo(xLeft,yTholdLeft);
+        ctx.lineTo(xRight,yTholdRight);
+        ctx.lineTo(xRight,top);
+        ctx.lineTo(xLeft,top);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+        }
+        ctx.globalCompositeOperation = "source-over";
 			}
-		});
+    });
 
     var dataFirstSwitch = {
 			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],      
       datasets: [{
         label: 'Driver # 1',
-				backgroundColor: colors.red,
-				borderColor: colors.red,
+				backgroundColor: colors.blue,
+				borderColor: colors.blue,
 				data: firstSwitch,
         fill: false,
         pointRadius: 6,
@@ -163,7 +232,7 @@ export class AppComponent implements OnInit {
           display: true,
 					scaleLabel: {
 						display: true,
-            labelString: 'Driver',
+            //labelString: 'Driver',
             fontColor: 'white',
             fontSize: 12,
 					}
@@ -189,14 +258,14 @@ export class AppComponent implements OnInit {
 				}]
 			}
     }    
-  })
+  });
 
   var dataSustainedSwitch = {
     labels: drivers,      
     datasets: [{
       label: 'Driver # 1',
-      backgroundColor: colors.red,
-      borderColor: colors.red,
+      backgroundColor: colors.blue,
+      borderColor: colors.blue,
       data: sustainedSwitch,
       fill: false,
       pointRadius: 6,
@@ -246,7 +315,7 @@ export class AppComponent implements OnInit {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Driver',
+          //labelString: 'Driver',
           fontColor: 'white',
           fontSize: 12,
         }
@@ -278,8 +347,8 @@ var dataMaxSwitch = {
   labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: colors.red,
-    borderColor: colors.red,
+    backgroundColor: colors.blue,
+    borderColor: colors.blue,
     data: maxSwitch,
     fill: false,
     pointRadius: 6,
@@ -329,7 +398,7 @@ options: {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Driver',
+        //labelString: 'Driver',
         fontColor: 'white',
         fontSize: 12,
       }
@@ -412,7 +481,7 @@ options: {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Driver',
+        //labelString: 'Driver',
         fontColor: 'white',
         fontSize: 12,
       }
@@ -495,7 +564,7 @@ options: {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Driver',
+        //labelString: 'Driver',
         fontColor: 'white',
         fontSize: 12,
       }
@@ -578,7 +647,7 @@ options: {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Driver',
+        //labelString: 'Driver',
         fontColor: 'white',
         fontSize: 12,
       }
@@ -610,8 +679,8 @@ var dataFirstPrint = {
   labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: colors.green,
-    borderColor: colors.green,
+    backgroundColor: colors.purple,
+    borderColor: colors.purple,
     data: firstPrint,
     fill: false,
     pointRadius: 6,
@@ -661,7 +730,7 @@ options: {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Driver',
+        //labelString: 'Driver',
         fontColor: 'white',
         fontSize: 12,
       }
@@ -692,8 +761,8 @@ var dataSustainedPrint = {
   labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
-    backgroundColor: colors.green,
-    borderColor: colors.green,
+    backgroundColor: colors.purple,
+    borderColor: colors.purple,
     data: sustainedPrint,
     fill: false,
     pointRadius: 6,
@@ -742,7 +811,7 @@ options: {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Driver',
+        //labelString: 'Driver',
         fontColor: 'white',
         fontSize: 12,
       }}],
@@ -772,8 +841,8 @@ options: {
     //'maxOpen','firstOpen','sustainedOpen','maxPrint','firstPrint','sustainedPrint'],
     datasets: [{
       label: 'Driver # 1',
-      backgroundColor: colors.green,
-      borderColor: colors.green,
+      backgroundColor: colors.purple,
+      borderColor: colors.purple,
       data: maxPrint,
         // maxOpen,firstOpen,sustainedOpen,maxPrint,firstPrint,sustainedPrint],
       fill: false,
@@ -823,7 +892,7 @@ options: {
         display: true,
         scaleLabel: {
           display: true,
-          labelString: 'Driver',
+          //labelString: 'Driver',
           fontColor: 'white',
           fontSize: 12,
         }}],
@@ -849,6 +918,22 @@ options: {
     }}    
   })
 
+$(document).keypress(function(e) {
+    if(e.which == 0 || e.which == 27) {
+      var card = $(".enlarged");
+      if (card.length >= 1){
+        card.toggleClass( "col-lg-4" );
+        card.toggleClass( "col-lg-10" );
+        card.toggleClass( "enlarged" );
+        var wait = setInterval(function() {
+          if( !$(e.target).is(":animated") ) {
+            clearInterval(wait);
+            var new_position = $(card).offset();
+            $('html, body').stop().animate({ scrollTop: new_position.top }, 100);
+          }
+        }, 150);
+    } }
+});
 
 //Card resizing
 $(".enlarge").click(function(event){
@@ -930,7 +1015,7 @@ var j = 0;
 var database = [];
 var UIDx;
 
-function GetSortOrder(prop) {  
+function GetSortOrder(prop) {
   return function(a, b) {  
       if (a[prop] > b[prop]) {  
           return 1;  
@@ -953,6 +1038,7 @@ for (j=0; j < data.length-1; j++) {
     $("#combos").append("<button class=\"UIDbutton btn btn-outline\" id = \"" + tag + "\">" + UIDx + "</button>");
   }
 }
+
 for (j=0; j < data.length-1; j++) {
   if (data[j].Test_UID == UID[0]) {  
     //Event Filter
@@ -1029,7 +1115,6 @@ function graphIt(data,id){
   var sustainedPrint =[];
   var maxPrint = [];
 
-
   var drivers = [];
   var JenkinsBuild = [];
 
@@ -1057,7 +1142,7 @@ function graphIt(data,id){
     }
   }
   
-  $("#charted").html(charted);
+  $("#charted").html(charted);  
   
   firstSwitchChart.data.datasets[0].data = firstSwitch;
   firstSwitchChart.data.datasets[0].label = charted;
@@ -1103,9 +1188,21 @@ function graphIt(data,id){
   maxPrintChart.data.datasets[0].label = charted;
   maxPrintChart.data.labels = drivers;
   maxPrintChart.update();
-  }
+  };
 
 
+/* var baseline = {
+  label: 'Baseline - 5.585.13.0',
+  backgroundColor: colors.green,
+  borderColor: colors.green,
+  data: baselineData,
+  fill: false,
+  pointRadius: 6,
+  pointHoverRadius: 12,
+  pointHitRadius: 15,	
+};
+
+firstSwitchChart.data.datasets.push(baseline); */
 
 //END
 }}

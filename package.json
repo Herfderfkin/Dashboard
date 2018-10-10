@@ -37,6 +37,7 @@
     "jsonpath": "^1.0.0",
     "ngx-papaparse": "^2.1.4",
     "papaparse": "^4.6.0",
+    "regression": "^2.0.1",
     "rxjs": "^6.0.0",
     "stream": "0.0.2",
     "timers": "^0.1.1",
