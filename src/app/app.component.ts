@@ -3,9 +3,8 @@ import { Chart } from 'chart.js';
 import * as Papa  from 'papaparse';
 import * as $ from 'jquery';
 import * as regression from 'regression';
-import { RegisteredFilter } from '@clr/angular/data/datagrid/providers/filters';
-import { isDefined } from '@angular/compiler/src/util';
-import { element } from 'protractor';
+import { isDefined, splitAtColon } from '@angular/compiler/src/util';
+import { DirectiveDefFlags } from '@angular/core/src/render3';
 
 
 @Component({
@@ -83,7 +82,7 @@ export class AppComponent implements OnInit {
 
 							// Make sure alignment settings are correct
 							ctx.textAlign = 'center';
-							ctx.textBaseline = 'middle';
+              ctx.textBaseline = 'middle';              
 
               var padding = 5;
               var positionx = element._model.x;
@@ -145,7 +144,7 @@ export class AppComponent implements OnInit {
         ctx.closePath();
         ctx.clip();
 
-        ctx.fillStyle = 'rgba(75,192,192,0.1)';
+        ctx.fillStyle = 'rgba(75,192,192,0.25)';
         ctx.beginPath();
         ctx.moveTo(xLeft,yLeft);
         ctx.lineTo(xRight,yRight);
@@ -154,7 +153,7 @@ export class AppComponent implements OnInit {
         ctx.closePath();
         ctx.fill();
         
-        ctx.fillStyle = 'rgba(255,205,86,0.1)';
+        ctx.fillStyle = 'rgba(255,205,86,0.25)';
         ctx.beginPath();
         ctx.moveTo(xLeft,yLeft);
         ctx.lineTo(xRight,yRight);
@@ -163,7 +162,7 @@ export class AppComponent implements OnInit {
         ctx.closePath();
         ctx.fill();    
 
-        ctx.fillStyle = 'rgba(255,99,132,0.1)';
+        ctx.fillStyle = 'rgba(255,99,132,0.25)';
         ctx.beginPath();
         ctx.moveTo(xLeft,yTholdLeft);
         ctx.lineTo(xRight,yTholdRight);
@@ -178,7 +177,7 @@ export class AppComponent implements OnInit {
     });
 
     var dataFirstSwitch = {
-			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September'],      
+			labels: drivers,      
       datasets: [{
         label: 'Driver # 1',
 				backgroundColor: colors.blue,
@@ -211,7 +210,104 @@ export class AppComponent implements OnInit {
 			},
 			tooltips: {
 				mode: 'index',
-				intersect: false,
+        intersect: false,
+        bodyFontSize: 16,
+        callbacks: {
+          label: function(tooltipItem) {
+              var label = "  " + tooltipItem.yLabel;
+              return label;
+          }
+      }
+			},
+			hover: {
+				mode: 'nearest',
+				intersect: true,
+			},
+      scales: {
+				xAxes: [{
+          ticks: {
+            fontColor: "white",
+            fontSize: 12,
+            autoSkip: false,
+          },
+          gridLines: {
+            display: true,
+            color: "white",
+            lineWidth: .5,
+          },
+          display: true,
+					scaleLabel: {
+						display: true,
+            //labelString: 'Driver',
+            fontColor: 'white',
+            fontSize: 12,
+					}
+				}],
+				yAxes: [{
+          ticks: {
+            fontColor: "white",
+            fontSize: 12,
+            beginAtZero: true,
+          },
+          gridLines: {
+            display: true,
+            color: "white",
+            lineWidth: .5,
+          },          
+          display: true,
+					scaleLabel: {
+						display: true,
+						labelString: 'Time (seconds)',
+            fontColor: 'white',
+            fontSize: 12,
+          },
+				}]
+			}
+    }    
+  });
+
+  var dataSwitch123 = {
+    labels: drivers,      
+    datasets: [{
+      label: 'Driver # 1',
+      backgroundColor: colors.blue,
+      borderColor: colors.blue,
+      data: firstSwitch,
+      fill: false,
+      pointRadius: 6,
+      pointHoverRadius: 12,
+      pointHitRadius: 15,	
+    }]
+  }
+
+  var switch123Chart = new Chart('switch123', {
+    type: 'line',
+    data: dataSwitch123,
+		options: {
+      responsive: true,
+			// title: {
+			// 	display: true,
+      //   text: '1st Switch Times',
+      //   fontColor: 'white',
+      //   fontSize: 12,
+      // },       
+      legend: {
+        display: true,
+        labels: {
+          fontColor: 'white',
+          fontSize: 12,
+        }
+			},
+			tooltips: {
+				mode: 'index',
+        intersect: false,
+        bodyFontSize: 16,
+        callbacks: {
+          label: function(tooltipItem) {
+              var label = "  " + tooltipItem.yLabel;
+              return label;
+          }
+      }
 			},
 			hover: {
 				mode: 'nearest',
@@ -295,6 +391,13 @@ export class AppComponent implements OnInit {
     tooltips: {
       mode: 'index',
       intersect: false,
+      bodyFontSize: 16,
+      callbacks: {
+        label: function(tooltipItem) {
+            var label = "  " + tooltipItem.yLabel;
+            return label;
+        }
+    }
     },
     hover: {
       mode: 'nearest',
@@ -378,6 +481,13 @@ options: {
   tooltips: {
     mode: 'index',
     intersect: false,
+    bodyFontSize: 16,
+    callbacks: {
+      label: function(tooltipItem) {
+          var label = "  " + tooltipItem.yLabel;
+          return label;
+      }
+  }
   },
   hover: {
     mode: 'nearest',
@@ -461,6 +571,13 @@ options: {
   tooltips: {
     mode: 'index',
     intersect: false,
+    bodyFontSize: 16,
+    callbacks: {
+      label: function(tooltipItem) {
+          var label = "  " + tooltipItem.yLabel;
+          return label;
+      }
+  }
   },
   hover: {
     mode: 'nearest',
@@ -544,6 +661,13 @@ options: {
   tooltips: {
     mode: 'index',
     intersect: false,
+    bodyFontSize: 16,
+    callbacks: {
+      label: function(tooltipItem) {
+          var label = "  " + tooltipItem.yLabel;
+          return label;
+      }
+  }
   },
   hover: {
     mode: 'nearest',
@@ -592,7 +716,7 @@ options: {
 }    
 });
 
-var dataMaxOpen = {
+var dataOpen123 = {
   labels: drivers,      
   datasets: [{
     label: 'Driver # 1',
@@ -606,9 +730,9 @@ var dataMaxOpen = {
   }]
 };
 
-var maxOpenChart = new Chart('maxOpen', {
+var open123Chart = new Chart('open123', {
 type: 'line',
-data: dataMaxOpen,
+data: dataOpen123,
 options: {
   responsive: true,
   // title: {
@@ -627,6 +751,13 @@ options: {
   tooltips: {
     mode: 'index',
     intersect: false,
+    bodyFontSize: 16,
+    callbacks: {
+      label: function(tooltipItem) {
+          var label = "  " + tooltipItem.yLabel;
+          return label;
+      }
+  }
   },
   hover: {
     mode: 'nearest',
@@ -710,6 +841,13 @@ options: {
   tooltips: {
     mode: 'index',
     intersect: false,
+    bodyFontSize: 16,
+    callbacks: {
+      label: function(tooltipItem) {
+          var label = "  " + tooltipItem.yLabel;
+          return label;
+      }
+  }
   },
   hover: {
     mode: 'nearest',
@@ -788,10 +926,17 @@ options: {
       fontColor: 'white',
       fontSize: 12,
     }},
-  tooltips: {
-    mode: 'index',
-    intersect: false,
-  },
+    tooltips: {
+      mode: 'index',
+      intersect: false,
+      bodyFontSize: 16,
+      callbacks: {
+        label: function(tooltipItem) {
+            var label = "  " + tooltipItem.yLabel;
+            return label;
+        }
+    }
+    },
   hover: {
     mode: 'nearest',
     intersect: true,
@@ -836,7 +981,7 @@ options: {
     }]
   }}});
 
-  var dataMaxPrint = {
+  var dataprint123 = {
     labels: drivers,
     //'maxOpen','firstOpen','sustainedOpen','maxPrint','firstPrint','sustainedPrint'],
     datasets: [{
@@ -852,9 +997,9 @@ options: {
     }]
   };
 
-  var maxPrintChart = new Chart('maxPrint', {
+  var print123Chart = new Chart('print123', {
   type: 'line',
-  data: dataMaxPrint,
+  data: dataprint123,
   options: {
     responsive: true,
     // title: {
@@ -869,10 +1014,17 @@ options: {
         fontColor: 'white',
         fontSize: 12,
       }},
-    tooltips: {
-      mode: 'index',
-      intersect: false,
-    },
+      tooltips: {
+				mode: 'index',
+        intersect: false,
+        bodyFontSize: 16,
+        callbacks: {
+          label: function(tooltipItem) {
+              var label = "  " + tooltipItem.yLabel;
+              return label;
+          }
+      }
+			},
     hover: {
       mode: 'nearest',
       intersect: true,
@@ -998,14 +1150,17 @@ $(".csv-file").change(handleFileSelect);
 var firstSwitch = [];
 var sustainedSwitch = [];
 var maxSwitch = [];
+var switch123 = [];
 
 var firstOpen = [];
 var sustainedOpen = [];
 var maxOpen = [];
+var open123 = [];
 
 var firstPrint = [];
 var sustainedPrint =[];
 var maxPrint = [];
+var print123 = [];
 
 var drivers = [];
 var JenkinsBuild = [];
@@ -1028,7 +1183,6 @@ function GetSortOrder(prop) {
 
 function callBack(data){
 database = data;
-console.log(data);
 database.sort(GetSortOrder("DriverVer"));
 for (j=0; j < data.length-1; j++) {
   var tag = data[j].Test_UID
@@ -1069,76 +1223,106 @@ firstSwitchChart.data.datasets[0].data = firstSwitch;
 firstSwitchChart.data.labels = drivers;
 firstSwitchChart.update();
 
+switch123Chart.data.datasets[0].data = switch123;
+switch123Chart.data.datasets[0].label = charted;
+switch123Chart.data.labels = drivers;
+switch123Chart.update();
+
 sustainedSwitchChart.data.datasets[0].data = sustainedSwitch;
 sustainedSwitchChart.data.labels = drivers;
 sustainedSwitchChart.update();
 
-maxSwitchChart.data.datasets[0].data = maxSwitch;
+/* maxSwitchChart.data.datasets[0].data = maxSwitch;
 maxSwitchChart.data.labels = drivers;
-maxSwitchChart.update();
+maxSwitchChart.update(); */
 
 firstOpenChart.data.datasets[0].data = firstOpen;
 firstOpenChart.data.labels = drivers;
 firstOpenChart.update();
 
+open123Chart.data.datasets[0].data = open123;
+open123Chart.data.datasets[0].label = charted;
+open123Chart.data.labels = drivers;
+open123Chart.update();
+
+
 sustainedOpenChart.data.datasets[0].data = sustainedOpen;
 sustainedOpenChart.data.labels = drivers;
 sustainedOpenChart.update();
 
-maxOpenChart.data.datasets[0].data = maxOpen;
+/* maxOpenChart.data.datasets[0].data = maxOpen;
 maxOpenChart.data.labels = drivers;
-maxOpenChart.update();
+maxOpenChart.update(); */
 
 firstPrintChart.data.datasets[0].data = firstPrint;
 firstPrintChart.data.labels = drivers;
 firstPrintChart.update();
 
+print123Chart.data.datasets[0].data = print123;
+print123Chart.data.datasets[0].label = charted;
+print123Chart.data.labels = drivers;
+print123Chart.update();
+
 sustainedPrintChart.data.datasets[0].data = sustainedPrint;
 sustainedPrintChart.data.labels = drivers;
 sustainedPrintChart.update();
 
-maxPrintChart.data.datasets[0].data = maxPrint;
+/* maxPrintChart.data.datasets[0].data = maxPrint;
 maxPrintChart.data.labels = drivers;
-maxPrintChart.update();
+maxPrintChart.update(); */
 }
 
 function graphIt(data,id){
   var firstSwitch = [];
   var sustainedSwitch = [];
   var maxSwitch = [];
+  var switch123 = [];
 
   var firstOpen = [];
   var sustainedOpen = [];
   var maxOpen = [];
+  var open123 = [];
 
   var firstPrint = [];
   var sustainedPrint =[];
   var maxPrint = [];
+  var print123 = [];
 
   var drivers = [];
   var JenkinsBuild = [];
+  var avgsString = "";
+  var avgsArr = [];
+  var avg123 = 0;
 
   for (j=0; j < data.length-1; j++) {
     if (data[j].Test_UID == id) {      
       //Event Filter
+      avgsString = data[j].Avgs;
+      avgsArr = avgsString.split(" ");
+      avg123 = parseFloat(((parseFloat(avgsArr[0]) + parseFloat(avgsArr[1]) + parseFloat(avgsArr[2]))/3).toFixed(2));
+
       if (data[j].Event == 'Switch') {
         maxSwitch.push(data[j].High);
         firstSwitch.push(data[j].First);
-        sustainedSwitch.push(data[j].Sustained);
+        sustainedSwitch.push(data[j].Sustained);        
+        switch123.push(avg123);
         JenkinsBuild.push(data[j].BuildTag);
         drivers.push([data[j].DriverVer, data[j].TestTime.split(" ")[0]]);
       }
       if (data[j].Event == 'Open') {
         maxOpen.push(data[j].High);
         firstOpen.push(data[j].First);
-        sustainedOpen.push(data[j].Sustained);
+        sustainedOpen.push(data[j].Sustained);        
+        open123.push(avg123);
       }
       if (data[j].Event == 'Print') {
         maxPrint.push(data[j].High);
         firstPrint.push(data[j].First);
         sustainedPrint.push(data[j].Sustained);
+        print123.push(avg123);
       }
       var charted = data[j].DriverType + ", " + data[j].PDL + ", " + data[j].OS + ", " + data[j].App + ", " + data[j].Complexity + ", " + data[j].RestartBwCycles + " Reboots, " + data[j].Config
+      
     }
   }
   
@@ -1148,46 +1332,61 @@ function graphIt(data,id){
   firstSwitchChart.data.datasets[0].label = charted;
   firstSwitchChart.data.labels = drivers;
   firstSwitchChart.update();
+
+  switch123Chart.data.datasets[0].data = switch123;
+  switch123Chart.data.datasets[0].label = charted;
+  switch123Chart.data.labels = drivers;
+  switch123Chart.update();
   
   sustainedSwitchChart.data.datasets[0].data = sustainedSwitch;
   sustainedSwitchChart.data.datasets[0].label = charted;
   sustainedSwitchChart.data.labels = drivers;
   sustainedSwitchChart.update();
   
-  maxSwitchChart.data.datasets[0].data = maxSwitch;
+/*   maxSwitchChart.data.datasets[0].data = maxSwitch;
   maxSwitchChart.data.datasets[0].label = charted;
   maxSwitchChart.data.labels = drivers;
-  maxSwitchChart.update();
+  maxSwitchChart.update(); */
   
   firstOpenChart.data.datasets[0].data = firstOpen;
   firstOpenChart.data.datasets[0].label = charted;
   firstOpenChart.data.labels = drivers;
   firstOpenChart.update();
+
+  open123Chart.data.datasets[0].data = open123;
+  open123Chart.data.datasets[0].label = charted;
+  open123Chart.data.labels = drivers;
+  open123Chart.update();
   
   sustainedOpenChart.data.datasets[0].data = sustainedOpen;
   sustainedOpenChart.data.datasets[0].label = charted;
   sustainedOpenChart.data.labels = drivers;
   sustainedOpenChart.update();
   
-  maxOpenChart.data.datasets[0].data = maxOpen;
+/*   maxOpenChart.data.datasets[0].data = maxOpen;
   maxOpenChart.data.datasets[0].label = charted;
   maxOpenChart.data.labels = drivers;
-  maxOpenChart.update();
+  maxOpenChart.update(); */
   
   firstPrintChart.data.datasets[0].data = firstPrint;
   firstPrintChart.data.datasets[0].label = charted;
   firstPrintChart.data.labels = drivers;
   firstPrintChart.update();
+
+  print123Chart.data.datasets[0].data = print123;
+  print123Chart.data.datasets[0].label = charted;
+  print123Chart.data.labels = drivers;
+  print123Chart.update();
   
   sustainedPrintChart.data.datasets[0].data = sustainedPrint;
   sustainedPrintChart.data.datasets[0].label = charted;
   sustainedPrintChart.data.labels = drivers;
   sustainedPrintChart.update();
   
-  maxPrintChart.data.datasets[0].data = maxPrint;
+/*   maxPrintChart.data.datasets[0].data = maxPrint;
   maxPrintChart.data.datasets[0].label = charted;
   maxPrintChart.data.labels = drivers;
-  maxPrintChart.update();
+  maxPrintChart.update(); */
   };
 
 
